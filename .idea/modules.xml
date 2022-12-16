@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Assignment_2/Assignment_2.iml" filepath="$PROJECT_DIR$/Assignment_2/Assignment_2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ENTERPRISE_JAVA_WITH_SPRING_BOOT.iml" filepath="$PROJECT_DIR$/ENTERPRISE_JAVA_WITH_SPRING_BOOT.iml" />
+    </modules>
+  </component>
+</project>
