@@ -1,7 +1,7 @@
 /*
-Question1
-Give the menu to the user as the operation listed below on student table
-1. Create   2. Read    3. Update   4. Delete
+Question3
+perform CRUD operation using preparedStatement
+      1. insert 2. update 3. select 4. delete
  */
 package com.ptalluru;
 
@@ -16,11 +16,11 @@ import java.util.Scanner;
 /**
  * @PTalluru
  */
-public class JdbcAssignmentOne {
+public class JdbcCrudPreparedStatement {
     public static void main(String[] args){
         Scanner scanner = new Scanner(System.in);
         boolean login = true;
-        System.out.println("***** Welcome To JDBC Crud Operations *****");
+        System.out.println("***** Welcome To JDBC Crud Operations With Prepared Statement *****");
         while (login){
             System.out.println("------------------------------------");
             System.out.println("-----Available CRUD Operations-----");

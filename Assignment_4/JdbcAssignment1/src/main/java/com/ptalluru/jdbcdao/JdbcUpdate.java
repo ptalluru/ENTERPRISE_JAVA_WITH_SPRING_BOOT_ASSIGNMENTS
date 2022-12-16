@@ -2,45 +2,45 @@ package com.ptalluru.jdbcdao;
 
 import com.ptalluru.jdbcutility.JdbcUtil;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Scanner;
 
-public class JdbcsUpdate {
+/**
+ * @author PTalluru
+ */
+public class JdbcUpdate {
 
+    /**
+     *
+     */
     public static void updateStudent(){
         Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
+        Statement statement = null;
         Scanner scanner = null;
         try {
             connection = JdbcUtil.getConnection();
-
             scanner = JdbcUtil.getScanner();
             System.out.print("Enter Student id to update :: ");
             int sId = scanner.nextInt();
-            System.out.print("Enter Student name to update :: ");
-            String sName = scanner.next();
-            System.out.print("Enter Student age to update :: ");
-            int sAge = scanner.nextInt();
-            System.out.print("Enter Student addr to update :: ");
-            String sAddr = scanner.next();
+            ResultSet resultSet = JdbcRead.getStudentById(sId);
+            if(resultSet.next()){
+                System.out.print("Enter Student name to update :: ");
+                String sName = scanner.next();
+                System.out.print("Enter Student age to update :: ");
+                int sAge = scanner.nextInt();
+                System.out.print("Enter Student addr to update :: ");
+                String sAddr = scanner.next();
 
-            String query = "update Student set sname=?,sage=?,saddr=? where sid=?";
-            preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1,sName);
-            preparedStatement.setInt(2,sAge);
-            preparedStatement.setString(3,sAddr);
-            preparedStatement.setInt(4,sId);
-
-            int rowsAffected = preparedStatement.executeUpdate();
-
-            if(rowsAffected>0){
-                System.out.println("No. of rows affected :: "+rowsAffected);
-            }else{
-                System.out.println("No record found for id :: "+sId);
+                String query = String.format("update Student set sname='%s',sage=%d,saddr='%s' where sid=%d",sName,sAge,sAddr,sId);
+                if (connection!=null){
+                    statement = connection.createStatement();
+                }
+                if(statement!=null){
+                    int rowsAffected = statement.executeUpdate(query);
+                    System.out.println("No. of rows affected :: "+rowsAffected);
+                } else{
+                    System.out.println("No record found for id :: "+sId);
+                }
             }
 
         } catch (SQLException se) {
@@ -49,7 +49,7 @@ public class JdbcsUpdate {
             e.printStackTrace();
         } finally {
             try {
-                JdbcUtil.closeConnections(connection,preparedStatement,resultSet);
+                JdbcUtil.closeConnections(connection,statement,null);
             } catch (SQLException se) {
                 se.printStackTrace();
             }

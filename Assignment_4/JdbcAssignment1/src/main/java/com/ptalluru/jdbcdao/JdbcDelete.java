@@ -2,17 +2,19 @@ package com.ptalluru.jdbcdao;
 
 import com.ptalluru.jdbcutility.JdbcUtil;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Scanner;
 
+/**
+ * @author PTalluru
+ */
 public class JdbcDelete {
+    /**
+     *
+     */
     public static void deleteStudent(){
         Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
+        Statement statement = null;
         Scanner scanner = null;
 
         try {
@@ -21,14 +23,17 @@ public class JdbcDelete {
 
             System.out.print("\nEnter Student id to delete :: ");
             int sId = scanner.nextInt();
-            String query = "delete from Student where sid=?";
-            preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1,sId);
-            int affectedRows = preparedStatement.executeUpdate();
-            if(affectedRows>0){
-                System.out.println("No. of rows affected :: "+affectedRows);
-            }else{
-                System.out.println("No record found for id :: "+sId);
+            String query = String.format("delete from Student where sid=%d",sId);
+            if (connection!=null){
+                statement = connection.createStatement();
+            }
+            if(statement!=null){
+                int affectedRows = statement.executeUpdate(query);
+                if(affectedRows>0){
+                    System.out.println("No. of rows affected :: "+affectedRows);
+                }else{
+                    System.out.println("No record found for id :: "+sId);
+                }
             }
 
         } catch (SQLException se) {
@@ -37,7 +42,7 @@ public class JdbcDelete {
             e.printStackTrace();
         } finally {
             try {
-                JdbcUtil.closeConnections(connection,preparedStatement,resultSet);
+                JdbcUtil.closeConnections(connection,statement,null);
             } catch (SQLException se) {
                 se.printStackTrace();
             }

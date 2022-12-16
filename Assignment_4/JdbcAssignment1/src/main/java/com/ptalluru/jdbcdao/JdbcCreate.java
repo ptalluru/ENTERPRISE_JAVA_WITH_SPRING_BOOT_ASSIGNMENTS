@@ -2,21 +2,22 @@ package com.ptalluru.jdbcdao;
 
 import com.ptalluru.jdbcutility.JdbcUtil;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Scanner;
 
+/**
+ * @author PTalluru
+ */
 public class JdbcCreate {
+    /**
+     *
+     */
     public static void saveStudent(){
         Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
+        Statement statement = null;
         Scanner scanner = null;
         try {
             connection = JdbcUtil.getConnection();
-
             scanner = JdbcUtil.getScanner();
             System.out.print("Enter Student name :: ");
             String sName = scanner.next();
@@ -24,23 +25,22 @@ public class JdbcCreate {
             int sAge = scanner.nextInt();
             System.out.print("Enter Student addr :: ");
             String sAddr = scanner.next();
+            String query = String.format("insert into Student(`sname`,`sage`,`saddr`) values('%s',%d,'%s')",sName,sAge,sAddr);
 
-            String query = "insert into Student(`sname`,`sage`,`saddr`) values(?,?,?)";
-            preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1,sName);
-            preparedStatement.setInt(2,sAge);
-            preparedStatement.setString(3,sAddr);
-
-            int rowsAffected = preparedStatement.executeUpdate();
-            System.out.println("No. of rows affected :: "+rowsAffected);
-
-        } catch (SQLException se) {
+            if(connection!=null){
+                statement = connection.createStatement();
+            }
+            if (statement != null) {
+                int rowsAffected = statement.executeUpdate(query);
+                System.out.println("No. of rows affected :: "+rowsAffected);
+            }
+        } catch (SQLException se ) {
             se.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             try {
-                JdbcUtil.closeConnections(connection,preparedStatement,resultSet);
+                JdbcUtil.closeConnections(connection,statement,null);
             } catch (SQLException se) {
                 se.printStackTrace();
             }
