@@ -9,6 +9,11 @@ import java.util.Scanner;
  * @author PTalluru
  */
 public class JdbcCreate {
+
+    /**
+     *
+     */
+    private JdbcCreate(){}
     /**
      *
      */
@@ -19,12 +24,14 @@ public class JdbcCreate {
         try {
             connection = JdbcUtil.getConnection();
             scanner = JdbcUtil.getScanner();
+
             System.out.print("Enter Student name :: ");
-            String sName = scanner.next();
+            String sName = scanner.nextLine();
             System.out.print("Enter Student age :: ");
             int sAge = scanner.nextInt();
+            scanner.nextLine();
             System.out.print("Enter Student addr :: ");
-            String sAddr = scanner.next();
+            String sAddr = scanner.nextLine();
             String query = String.format("insert into Student(`sname`,`sage`,`saddr`) values('%s',%d,'%s')",sName,sAge,sAddr);
 
             if(connection!=null){

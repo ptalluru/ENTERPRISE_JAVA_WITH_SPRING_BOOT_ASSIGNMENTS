@@ -13,6 +13,11 @@ public class JdbcUpdate {
     /**
      *
      */
+    private JdbcUpdate(){}
+
+    /**
+     *
+     */
     public static void updateStudent(){
         Connection connection = null;
         Statement statement = null;
@@ -22,6 +27,7 @@ public class JdbcUpdate {
             scanner = JdbcUtil.getScanner();
             System.out.print("Enter Student id to update :: ");
             int sId = scanner.nextInt();
+            scanner.nextLine();
             ResultSet resultSet = JdbcRead.getStudentById(sId);
             if(resultSet.next()){
                 System.out.print("Enter Student name to update :: ");

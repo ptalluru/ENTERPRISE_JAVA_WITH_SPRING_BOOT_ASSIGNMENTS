@@ -1,4 +1,4 @@
-package com.ptalluru.jdbcutility;
+package com.ptalluru.utility;
 
 import com.mysql.cj.jdbc.MysqlConnectionPoolDataSource;
 
@@ -8,9 +8,18 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
+/**
+ * @author PTalluru
+ */
 public class JdbcUtil {
     private static Scanner scanner ;
     private JdbcUtil(){}
+
+    /**
+     *
+     * @return Connection
+     * @throws SQLException
+     */
     public static Connection getConnection() throws SQLException {
         MysqlConnectionPoolDataSource mysqlConnectionPoolDataSource = new MysqlConnectionPoolDataSource();
         mysqlConnectionPoolDataSource.setDatabaseName("Java");
@@ -19,16 +28,32 @@ public class JdbcUtil {
         Connection connection = mysqlConnectionPoolDataSource.getConnection();
         return connection;
     }
+
+    /**
+     *
+     * @return Scanner
+     */
     public static Scanner getScanner(){
         scanner = new Scanner(System.in);
         return scanner;
     }
 
+    /**
+     *
+     */
     public static void closeScanner(){
         if(scanner!=null){
             scanner.close();
         }
     }
+
+    /**
+     *
+     * @param connection
+     * @param statement
+     * @param resultSet
+     * @throws SQLException
+     */
     public static void closeConnections(Connection connection, Statement statement, ResultSet resultSet) throws SQLException {
         if(statement!=null){
             statement.close();
@@ -40,5 +65,4 @@ public class JdbcUtil {
             connection.close();
         }
     }
-
 }

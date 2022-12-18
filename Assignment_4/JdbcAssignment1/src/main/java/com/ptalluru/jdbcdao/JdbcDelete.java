@@ -9,6 +9,12 @@ import java.util.Scanner;
  * @author PTalluru
  */
 public class JdbcDelete {
+
+    /**
+     *
+     */
+    private JdbcDelete(){}
+
     /**
      *
      */

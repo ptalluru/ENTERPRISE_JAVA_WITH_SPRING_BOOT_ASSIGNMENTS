@@ -1,6 +1,6 @@
-package com.ptalluru.jdbcdao;
+package com.ptalluru.dao;
 
-import com.ptalluru.jdbcutility.JdbcUtil;
+import com.ptalluru.utility.JdbcUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,11 +8,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+/**
+ * @author PTalluru
+ */
 public class JdbcDelete {
+
+    private JdbcDelete(){}
+
+    /**
+     *
+     */
     public static void deleteStudent(){
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
         Scanner scanner = null;
 
         try {
@@ -21,14 +29,20 @@ public class JdbcDelete {
 
             System.out.print("\nEnter Student id to delete :: ");
             int sId = scanner.nextInt();
+            scanner.nextLine();
             String query = "delete from Student where sid=?";
-            preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1,sId);
-            int affectedRows = preparedStatement.executeUpdate();
-            if(affectedRows>0){
-                System.out.println("No. of rows affected :: "+affectedRows);
-            }else{
-                System.out.println("No record found for id :: "+sId);
+
+            if (connection!=null) {
+                preparedStatement = connection.prepareStatement(query);
+            }
+            if (preparedStatement!=null) {
+                preparedStatement.setInt(1, sId);
+                int affectedRows = preparedStatement.executeUpdate();
+                if (affectedRows > 0) {
+                    System.out.println("No. of rows affected :: " + affectedRows);
+                } else {
+                    System.out.println("No record found for id :: " + sId);
+                }
             }
 
         } catch (SQLException se) {
@@ -37,7 +51,7 @@ public class JdbcDelete {
             e.printStackTrace();
         } finally {
             try {
-                JdbcUtil.closeConnections(connection,preparedStatement,resultSet);
+                JdbcUtil.closeConnections(connection,preparedStatement,null);
             } catch (SQLException se) {
                 se.printStackTrace();
             }

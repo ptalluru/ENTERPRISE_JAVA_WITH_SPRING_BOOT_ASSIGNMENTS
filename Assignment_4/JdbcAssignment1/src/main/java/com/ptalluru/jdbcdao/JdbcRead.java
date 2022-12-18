@@ -14,6 +14,10 @@ public class JdbcRead {
 
     /**
      *
+     */
+    private JdbcRead(){}
+    /**
+     *
      * @param sId
      * @return
      */

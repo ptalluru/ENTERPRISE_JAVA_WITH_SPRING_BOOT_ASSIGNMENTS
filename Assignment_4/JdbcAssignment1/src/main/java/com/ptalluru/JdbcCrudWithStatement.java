@@ -26,9 +26,8 @@ public class JdbcCrudWithStatement {
      */
     public static void main(String[] args){
         Scanner scanner = new Scanner(System.in);
-        boolean login = true;
         System.out.println("***** Welcome To JDBC Crud Operations with Statement *****");
-        while (login){
+        while (true){
             System.out.println("-----------------------------------");
             System.out.println("-----Available CRUD Operations-----");
             System.out.println("1.Create \n2.Read \n3.Update \n4.Delete \nSelect the above options to perform CRUD operations \npress ANY key(except 1,2,3,4) to exit");

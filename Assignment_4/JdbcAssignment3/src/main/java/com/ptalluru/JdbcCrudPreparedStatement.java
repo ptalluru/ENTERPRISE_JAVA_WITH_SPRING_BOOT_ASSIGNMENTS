@@ -5,11 +5,11 @@ perform CRUD operation using preparedStatement
  */
 package com.ptalluru;
 
-import com.ptalluru.jdbcdao.JdbcCreate;
-import com.ptalluru.jdbcdao.JdbcDelete;
-import com.ptalluru.jdbcdao.JdbcRead;
-import com.ptalluru.jdbcdao.JdbcsUpdate;
-import com.ptalluru.jdbcutility.JdbcUtil;
+import com.ptalluru.dao.JdbcCreate;
+import com.ptalluru.dao.JdbcDelete;
+import com.ptalluru.dao.JdbcRead;
+import com.ptalluru.dao.JdbcUpdate;
+import com.ptalluru.utility.JdbcUtil;
 
 import java.util.Scanner;
 
@@ -17,6 +17,10 @@ import java.util.Scanner;
  * @PTalluru
  */
 public class JdbcCrudPreparedStatement {
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args){
         Scanner scanner = new Scanner(System.in);
         boolean login = true;
@@ -24,7 +28,7 @@ public class JdbcCrudPreparedStatement {
         while (login){
             System.out.println("------------------------------------");
             System.out.println("-----Available CRUD Operations-----");
-            System.out.println("1.Create Student Record (Enter 1)\n2.Get All Students Record (Enter 2)\n3.Update the Student Record (Enter 3)\n4.Delete the Student Record (Enter 4)\nSelect the above options to perform CRUD operations \npress ANY key(except 1,2,3,4) to exit");
+            System.out.println("1.Create \n2.Read \n3.Update \n4.Delete \nSelect the above options to perform CRUD operations \npress ANY key(except 1,2,3,4) to exit");
             System.out.println("------------------------------------");
             String crudOp = scanner.nextLine();
             switch (crudOp){
@@ -35,7 +39,7 @@ public class JdbcCrudPreparedStatement {
                     JdbcRead.printStudents();
                     break;
                 case "3":
-                    JdbcsUpdate.updateStudent();
+                    JdbcUpdate.updateStudent();
                     break;
                 case "4":
                     JdbcDelete.deleteStudent();
@@ -46,6 +50,5 @@ public class JdbcCrudPreparedStatement {
                     break;
             }
         }
-        JdbcRead.printStudents();
     }
 }
